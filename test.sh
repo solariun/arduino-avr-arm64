@@ -23,6 +23,6 @@ for fqbn in $BOARDS; do
         fi
     done
 done
-gcc=$(grep -o "[^ \"]*/avr-g++" "$OUT"/*.log 2>/dev/null | head -1 || true)
+gcc=$(grep -ho "[^ \"]*/avr-g++" "$OUT"/*.log 2>/dev/null | head -1 || true)
 [ -n "$gcc" ] && echo "compiler: $gcc ($(file -b "$gcc" | cut -d, -f1))"
 exit $fail
