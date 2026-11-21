@@ -12,7 +12,23 @@ fork/exec …/avr-g++: bad CPU type in executable
 
 This repo builds the same toolchain natively from the official GNU and avr-libc sources. It then points the Arduino AVR core at it with Arduino's own override mechanism, `platform.local.txt`. Arduino keeps managing the core, the libraries and the board definitions. Only the compiler is swapped.
 
-## Quick start
+## Quick start: prebuilt release
+
+You don't need to build anything. Download the toolchain from [Releases](https://github.com/solariun/arduino-avr-arm64/releases):
+
+```bash
+brew install arduino-cli && arduino-cli core install arduino:avr
+B=https://github.com/solariun/arduino-avr-arm64/releases/download/v14.2.0-1
+curl -fLO $B/avr-gcc-14.2.0-darwin-arm64.tar.xz
+curl -fLO $B/avr-gcc-14.2.0-darwin-arm64.tar.xz.sha256
+shasum -a 256 -c avr-gcc-14.2.0-darwin-arm64.tar.xz.sha256
+mkdir -p ~/.local && tar -C ~/.local -xJf avr-gcc-14.2.0-darwin-arm64.tar.xz
+git clone https://github.com/solariun/arduino-avr-arm64 && cd arduino-avr-arm64
+./install.sh ~/.local/avr-gcc-14.2.0-darwin-arm64
+./test.sh
+```
+
+## Quick start: build from source
 
 ```bash
 # 0. prerequisites: Xcode Command Line Tools, arduino-cli and the AVR core
